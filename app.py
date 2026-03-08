@@ -4,9 +4,12 @@ import plotly.express as px
 
 st.set_page_config(page_title="Threat Intelligence Dashboard", layout="wide")
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_PATH = os.path.join(BASE_DIR, "data", "analyzed_posts.csv")
+
 @st.cache_data
 def load_data():
-    df = pd.read_csv("data/analyzed_posts.csv")
+    df = pd.read_csv(DATA_PATH)
     df["created_at"] = pd.to_datetime(df["created_utc"], unit="s")
     return df
 
