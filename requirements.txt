@@ -1,6 +1,7 @@
-praw
-pandas
-python-dotenv
-streamlit
-plotly
-numpy
+streamlit==1.51.0
+pandas>=2.2
+plotly>=5.24
+requests>=2.32
+numpy>=1.26,<3
+python-dotenv>=1.0
+gitpython>=3.1
