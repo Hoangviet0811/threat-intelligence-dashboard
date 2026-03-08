@@ -1,0 +1,6 @@
+praw
+pandas
+python-dotenv
+streamlit
+plotly
+numpy
