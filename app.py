@@ -132,6 +132,20 @@ st.dataframe(latest_posts.head(50), use_container_width=True)
 st.subheader("High / Critical Alerts")
 alerts_df = filtered_df[filtered_df["severity"].isin(["High", "Critical"])].sort_values("created_at", ascending=False)
 
+# ===== Threat Alert Box =====
+critical_alerts = filtered_df[filtered_df["severity"] == "Critical"].sort_values("created_at", ascending=False)
+
+if not critical_alerts.empty:
+    latest = critical_alerts.iloc[0]
+
+    st.error(
+        f"CRITICAL THREAT DETECTED\n\n"
+        f"**Title:** {latest['title']}\n\n"
+        f"**Source:** r/{latest['source']}\n\n"
+        f"**Attack Type:** {latest['attack_type']}\n\n"
+        f"**CVEs:** {latest['cves'] if str(latest['cves']).strip() else 'None detected'}"
+    )
+
 if not alerts_df.empty:
     st.dataframe(
         alerts_df[["created_at", "source", "title", "attack_type", "severity", "severity_score", "cves", "permalink"]].head(20),
