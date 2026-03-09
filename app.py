@@ -79,6 +79,22 @@ col2.metric("Flagged Threats", flagged_posts)
 col3.metric("High / Critical", high_critical)
 col4.metric("Unique CVEs", unique_cves)
 
+# ===== Threat Summary =====
+top_attack_type = "N/A"
+if not filtered_df["attack_type"].dropna().empty:
+    top_attack_type = filtered_df["attack_type"].value_counts().idxmax()
+
+top_cve = "N/A"
+if all_cves:
+    top_cve = pd.Series(all_cves).value_counts().idxmax()
+
+st.info(
+    f"**Threat Summary:** {total_posts} posts analyzed. "
+    f"{high_critical} High/Critical threats detected. "
+    f"Most discussed attack type: **{top_attack_type}**. "
+    f"Top CVE: **{top_cve}**."
+)
+
 st.divider()
 
 # ===== Threat Trend =====
