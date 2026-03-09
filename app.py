@@ -141,6 +141,21 @@ fig_attack = px.bar(
 )
 st.plotly_chart(fig_attack, use_container_width=True)
 
+# ===== Top Threat Sources =====
+st.subheader("Top Threat Sources")
+
+source_counts = filtered_df["source"].value_counts().reset_index()
+source_counts.columns = ["source", "count"]
+
+fig_sources = px.bar(
+    source_counts,
+    x="source",
+    y="count",
+    title="Threat Posts by Source"
+)
+
+st.plotly_chart(fig_sources, use_container_width=True)
+
 # ===== Top CVEs =====
 st.subheader("Top CVEs")
 if all_cves:
