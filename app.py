@@ -97,6 +97,21 @@ st.info(
 
 st.divider()
 
+# ===== Severity Distribution =====
+st.subheader("Threat Severity Distribution")
+
+severity_counts = filtered_df["severity"].value_counts().reset_index()
+severity_counts.columns = ["severity", "count"]
+
+fig_severity = px.pie(
+    severity_counts,
+    names="severity",
+    values="count",
+    title="Threat Severity Breakdown"
+)
+
+st.plotly_chart(fig_severity, use_container_width=True)
+
 # ===== Threat Trend =====
 st.subheader("Threat Trend by Day")
 trend_df = filtered_df.copy()
