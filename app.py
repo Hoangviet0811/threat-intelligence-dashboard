@@ -112,6 +112,24 @@ fig_severity = px.pie(
 
 st.plotly_chart(fig_severity, use_container_width=True)
 
+# ===== Emerging Threat Detection =====
+st.subheader("Emerging Threat Detection")
+
+recent_posts = filtered_df[
+    filtered_df["created_at"] > (pd.Timestamp.now() - pd.Timedelta(days=1))
+]
+
+if not recent_posts.empty:
+    emerging_attack = recent_posts["attack_type"].value_counts().idxmax()
+    emerging_count = recent_posts["attack_type"].value_counts().max()
+
+    st.warning(
+        f"⚠ Emerging Threat: **{emerging_attack}** discussions increased recently "
+        f"({emerging_count} posts in the last 24 hours)."
+    )
+else:
+    st.info("No significant emerging threats detected in the last 24 hours.")
+
 # ===== Threat Trend =====
 st.subheader("Threat Trend by Day")
 trend_df = filtered_df.copy()
